@@ -20,7 +20,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@types/angular": "^1.6.39",
-    "bootstrap": "^3.3.7",
+    "bootstrap": "^4.1.2",
     "core-js": "^2.4.1",
     "reflect-metadata": "^0.1.8",
     "rxjs": "^5.1.0",
