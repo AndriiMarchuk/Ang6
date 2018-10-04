@@ -29,6 +29,7 @@ export class NotesComponent implements OnInit {
     let note = {text: this.text};
     this.notes.push(note);
     this.text = "";
+    this.addNote(note);
   }
 
   remove(idx) {
@@ -39,6 +40,12 @@ export class NotesComponent implements OnInit {
     return this.httpClient.get<Note[]>(this.notesUrl)
       .toPromise();
   }
+
+  addNote(note:Note) {
+    this.httpClient.post(this.notesUrl, note).toPromise()
+      .then(response => console.log("note sent, response", response) );
+  }
+
 
 }
 
