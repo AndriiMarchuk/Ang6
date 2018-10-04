@@ -19,7 +19,7 @@ export class NotesComponent implements OnInit {
       this.notes=notes;
       console.log(notes);
     });
-
+    this.readNotes();
   }
 
   ngOnInit() {
@@ -43,9 +43,16 @@ export class NotesComponent implements OnInit {
 
   addNote(note:Note) {
     this.httpClient.post(this.notesUrl, note).toPromise()
-      .then(response => console.log("note sent, response", response) );
+      .then(response => {
+        this.readNotes();
+      } );
   }
 
+  readNotes() {
+    this.getNotes().then(notes=>{
+      this.notes=notes;
+    });
+  }
 
 }
 

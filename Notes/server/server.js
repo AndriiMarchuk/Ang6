@@ -7,11 +7,23 @@ var notes_init = [
     {text: "Second note"},
     {text: "Third note"}
 ];
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var Db = require('mongodb').Db;
+var Server = require('mongodb').Server;
+var db = new Db('tutor',
+    new Server("localhost", 27017, {safe: true},
+        {auto_reconnect: true}, {}));
+
+db.open(function(err){
+    if (err) console.log(err);
+    else console.log("mongo db is opened!");
+});
+db.collection('notes', function(error, notes) {
+    db.notes = notes;
+});
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
-
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -27,18 +39,15 @@ app.use(session({
 }));
 
 app.get("/notes", function(req,res) {
-    console.log("reading notes", req.session.notes);
-    if (!req.session.notes) {
-        req.session.notes = notes_init;
-    }
-    res.send(req.session.notes);
+    db.notes.find(req.query).toArray(function(err, items) {
+        res.send(items);
+    });
 });
 
 app.post("/notes", function(req,res) {
-    var note = req.body;
-    console.log("adding note", req.session.notes);
-    req.session.notes.push(note);
-    res.end();
+    db.notes.insert(req.body).then(function() {
+        res.end();
+    });
 });
 
 app.listen(8080);
