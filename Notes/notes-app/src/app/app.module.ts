@@ -5,11 +5,13 @@ import {AppComponent} from './app.component';
 import {FormsModule} from "@angular/forms";
 import {NotesComponent} from './notes/notes.component';
 import {HttpClientModule} from "@angular/common/http";
+import { SectionsComponentComponent } from './sections-component/sections-component.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotesComponent
+    NotesComponent,
+    SectionsComponentComponent
   ],
   imports: [
     BrowserModule, FormsModule, HttpClientModule

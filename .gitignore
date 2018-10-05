@@ -37,6 +37,8 @@ typings
 ~$*
 .gitkeep
 package-lock.json
+oyu-class-labs
+.~lock*
 
 # System Files
 .DS_Store
