@@ -4,7 +4,7 @@ var path = require('path');
 
 notes = [];
 sections = [{title: "Work"}, {title: "Private"}];
-
+sections.push({title: "Work"}, {title: "Vacations"}, {title: "Children"});
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -14,16 +14,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.get("/notes", function (req, res)
-{
+app.get("/notes", function (req, res) {
     var section = req.query.section;
 
     var toSend = [];
 
-    for (var n in notes)
-    {
-        if (section == notes[n].section)
-        {
+    for (var n in notes) {
+        if (section == notes[n].section) {
             toSend.push(notes[n]);
         }
     }
@@ -31,23 +28,19 @@ app.get("/notes", function (req, res)
     res.send(toSend);
 });
 
-app.post("/notes", function (req, res)
-{
+app.post("/notes", function (req, res) {
     notes.push(req.body);
 
     res.end();
 });
 
-app.get("/sections", function (req, res)
-{
+app.get("/sections", function (req, res) {
     res.send(sections);
 
 });
 
-app.post("/sections/replace", function (req, res)
-{
-    if (req.body.length == 0)
-    {
+app.post("/sections/replace", function (req, res) {
+    if (req.body.length == 0) {
         resp.end();
     }
 
